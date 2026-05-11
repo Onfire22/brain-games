@@ -6,9 +6,4 @@ public static class Utils
 	{
 		return Random.Shared.Next(min, max);
 	}
-
-	public static bool IsEven(int num)
-	{
-		return num % 2 == 0;
-	}
 }

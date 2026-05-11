@@ -2,40 +2,22 @@
 
 public class IsEvenGame : Game
 {
-	public IsEvenGame(string gameRules, int attempts) : base(gameRules, attempts)
+	public override string GameRules => Constants.Constants.IsEvenRules;
+	
+	public IsEvenGame(int attempts = 3) : base(attempts) {}
+
+	private static bool IsEven(int num)
 	{
-		
+		return num % 2 == 0;
 	}
 
-	private static bool ParseUserAnswer(string? answer)
+	public override (string, string) PlayGame()
 	{
-		if (answer == null) return false;
-		
-		return answer == "yes" ? true : false;
-	}
-
-	public override void PlayGame()
-	{
-		Console.WriteLine(GameRules);
-		for (int i = 0; i < Attempts; i++)
-		{
 			var randomNumber = Utils.GetRandomNumber(1, 100);
 			Console.WriteLine(randomNumber);
-			var result = Utils.IsEven(randomNumber);
+			var isEven = IsEven(randomNumber);
 			var userAttempt = Console.ReadLine();
-			if (result == ParseUserAnswer(userAttempt))
-			{
-				Console.WriteLine("Correct!");
-			}
-			else
-			{
-				IsGameSuccess = false;
-				IncorrectMessage =
-					$"'{userAttempt}' is wrong answer ;(. Correct answer was '{(userAttempt == "yes" ? "no" : "yes")}'.";
-				return;
-			}
-		}
-		
-		IsGameSuccess = true;
+			var result = ParseGameValue(isEven);
+			return (result, userAttempt);
 	}
 }

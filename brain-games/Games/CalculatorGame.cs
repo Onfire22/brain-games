@@ -6,7 +6,9 @@ public class CalculatorGame : Game
 
 	private List<char> Operators => _operators;
 	
-	public CalculatorGame(string gameRules, int attempts) : base(gameRules, attempts) {}
+	public override string GameRules => Constants.Constants.CalculatorRules;
+	
+	public CalculatorGame(int attempts = 3) : base(attempts) {}
 
 	private static int CalculateValue(int num1, int num2, char symbol)
 	{
@@ -23,33 +25,19 @@ public class CalculatorGame : Game
 		}
 	}
 	
-	public override void PlayGame()
+	public override (string, string) PlayGame()
 	{
-		Console.WriteLine(GameRules);
-		for (int i = 0; i < Attempts; i++)
+		var num1 = Utils.GetRandomNumber(1, 100);
+		var num2 = Utils.GetRandomNumber(1, 100);
+		var operatorIndex = Utils.GetRandomNumber(0, 2);
+		Console.WriteLine($"{num1} {Operators[operatorIndex]} {num2}");
+		var result = CalculateValue(num1, num2, Operators[operatorIndex]);
+		var isUserAttemptNumber = int.TryParse(Console.ReadLine(), out int userAttempt);
+		if (!isUserAttemptNumber)
 		{
-			var num1 = Utils.GetRandomNumber(1, 100);
-			var num2 = Utils.GetRandomNumber(1, 100);
-			var operatorIndex = Utils.GetRandomNumber(0, 2);
-			Console.WriteLine($"{num1} {Operators[operatorIndex]} {num2}");
-			var result = CalculateValue(num1, num2, Operators[operatorIndex]);
-			var isUserAttemptNumber = int.TryParse(Console.ReadLine(), out int userAttempt);
-			if (!isUserAttemptNumber)
-			{
-				throw new Exception("Your input is not a number");
-			}
-			Console.WriteLine($"Your answer: {userAttempt}");
-			if (result == userAttempt)
-			{
-				Console.WriteLine("Correct!");
-			}
-			else
-			{
-				IsGameSuccess = false;
-				IncorrectMessage = $"'{userAttempt}' is wrong answer ;(. Correct answer was '{result}'";
-				return;
-			}
+			throw new Exception("Your input is not a number");
 		}
-		IsGameSuccess = true;
+
+		return (result.ToString(), userAttempt.ToString());
 	}
 }

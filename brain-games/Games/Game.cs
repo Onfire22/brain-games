@@ -2,28 +2,30 @@
 
 public abstract class Game
 {
-	private string _gameRules;
 	private int _attempts;
 	private bool _isGameSuccess = false;
 	private string _incorrectMessage;
-
-	protected string GameRules { get; set; }
+	public abstract string GameRules { get; }
 
 	protected int Attempts
 	{
 		get => _attempts;
-		set => _attempts = value < 0 ? 1 : 3;
+		set => _attempts = value < 0 ? 1 : value;
 	}
 
 	public bool IsGameSuccess { get; set; }
 
 	public string IncorrectMessage { get; set; }
 	
-	protected Game(string gameRules, int attempts = 3)
+	protected Game(int attempts = 3)
 	{
-		GameRules = gameRules;
 		Attempts = attempts;
 	}
 	
-	public abstract void PlayGame();
+	public abstract (string, string) PlayGame();
+	
+	protected static string ParseGameValue(bool value)
+	{
+		return value ? "yes" : "no";
+	}
 }
