@@ -13,11 +13,15 @@ public class IsEvenGame : Game
 
 	public override (string, string) PlayGame()
 	{
-			var randomNumber = Utils.GetRandomNumber(1, 100);
-			Console.WriteLine(randomNumber);
-			var isEven = IsEven(randomNumber);
-			var userAttempt = Console.ReadLine();
-			var result = ParseGameValue(isEven);
-			return (result, userAttempt);
+		var randomNumber = Utils.GetRandomNumber(1, 100);
+		Console.WriteLine(randomNumber);
+		var isEven = IsEven(randomNumber);
+		var userAttempt = Console.ReadLine();
+		var result = ParseGameValue(isEven);
+		if (userAttempt == null)
+		{
+			throw new Exception("You should input answer");
+		}
+		return (result, userAttempt);
 	}
 }

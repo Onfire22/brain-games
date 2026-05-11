@@ -19,16 +19,16 @@ public class GCDGame : Game
 
 	public override (string, string) PlayGame()
 	{
-			var num1 = Utils.GetRandomNumber(1, 100);
-			var num2 = Utils.GetRandomNumber(1, 100);
-			var result = GetGCD(num1, num2);
-			Console.WriteLine($"Question: {num1} {num2}");
-			var isUserAttemptNumber = int.TryParse(Console.ReadLine(), out int userAttempt);
-			if (!isUserAttemptNumber)
-			{
-				throw new Exception("Your input is not a number");
-			}
+		var num1 = Utils.GetRandomNumber(1, 100);
+		var num2 = Utils.GetRandomNumber(1, 100);
+		var result = GetGCD(num1, num2);
+		Console.WriteLine($"Question: {num1} {num2}");
+		var isUserAttemptNumber = int.TryParse(Console.ReadLine(), out int userAttempt);
+		if (!isUserAttemptNumber)
+		{
+			throw new Exception("Your input is not a number");
+		}
 
-			return (result.ToString(), userAttempt.ToString());
+		return (result.ToString(), userAttempt.ToString());
 	}
 }

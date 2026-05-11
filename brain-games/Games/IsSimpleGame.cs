@@ -20,14 +20,15 @@ public class IsSimpleGame : Game
 	
 	public override (string, string) PlayGame()
 	{
+		var randomNumber = Utils.GetRandomNumber(1, 20);
+		Console.WriteLine(randomNumber);
+		var isSimple = IsSimple(randomNumber);
+		var userAttempt = Console.ReadLine();
+		var result = ParseGameValue(isSimple);
+		if (userAttempt == null)
 		{
-			var randomNumber = Utils.GetRandomNumber(1, 20);
-			Console.WriteLine(randomNumber);
-			var isSimple = IsSimple(randomNumber);
-			var userAttempt = Console.ReadLine();
-			var result = ParseGameValue(isSimple);
-			
-			return (result, userAttempt);
+			throw new Exception("You should input answer");
 		}
+		return (result, userAttempt);
 	}
 }
